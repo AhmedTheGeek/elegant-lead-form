@@ -1,0 +1,25 @@
+{
+    "name": "ahmedgeek/lead-generation-plugin",
+    "description": "a WordPress plugin that provides lead generation form",
+    "type": "wordpress-plugin",
+    "authors": [
+        {
+            "name": "Ahmed Hussein",
+            "email": "me@ahmedgeek.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "rdlowrey/auryn": "^1.4",
+        "phpunit/phpunit": "^8.5",
+        "mustache/mustache": "^2.13"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "LEADGEN\\": "server/"
+        }
+    }
+}
