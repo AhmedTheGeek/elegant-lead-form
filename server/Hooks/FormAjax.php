@@ -28,7 +28,9 @@ class FormAjax implements IHook {
 	public function define(): void {
 		$nonce_field = $_POST['form_id'] . '_nonce';
 		if ( ! isset( $_POST['form_id'], $_POST[ $nonce_field ] ) || ! wp_verify_nonce( $_POST[ $_POST['form_id'] . '_nonce' ], sprintf( 'elegant_form_%s', $_POST['form_id'] ) ) ) {
-			wp_send_json_error();
+			wp_send_json_error([
+				"message" => __('Error occurred!')
+			]);
 
 			return;
 		}
@@ -44,9 +46,9 @@ class FormAjax implements IHook {
 
 		$this->customer_repository->add( $customer );
 
-		wp_send_json_success( [
-			'hi' => "baby"
-		] );
+		wp_send_json_success([
+			"message" => __('Submitted Successfully!')
+		]);
 	}
 
 }

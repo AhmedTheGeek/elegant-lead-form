@@ -1,6 +1,7 @@
 <div class="form-group">
     <label for="{{form_id}}_{{name}}">
         {{display_name}}:
-        <textarea id="{{form_id}}_{{name}}" name="{{form_id}}_{{name}}">{{value}}</textarea>
+        <textarea id="{{form_id}}_{{name}}" name="{{form_id}}_{{name}}" maxlength="{{max_length}}" cols="{{columns}}"
+                  rows="{{rows}}">{{value}}</textarea>
     </label>
 </div>

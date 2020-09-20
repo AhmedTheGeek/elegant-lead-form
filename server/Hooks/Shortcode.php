@@ -5,7 +5,7 @@ namespace LEADGEN\Hooks;
 use LEADGEN\Templates\Shortcode_Template;
 
 class Shortcode implements IHook {
-	private const SHORTCODE = 'elegant_lead';
+	public const SHORTCODE = 'elegant_lead';
 
 	/**
 	 * @var Shortcode_Template

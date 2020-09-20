@@ -37,6 +37,7 @@ class Form {
 
 	public function enqueue_scripts(): void {
 		wp_enqueue_script( sprintf( '%s_form_script', LEADGEN_ASSETS_HANDLE ) );
+		wp_enqueue_style( sprintf( '%s_form_style', LEADGEN_ASSETS_HANDLE ) );
 	}
 
 	public function build(): string {
@@ -44,7 +45,7 @@ class Form {
 
 		$this->fields[] = new Hidden( $this->engine, 'nonce', null, 'hidden', $this->nonce );
 		$this->fields[] = new Hidden( $this->engine, Customer::DATE, null, 'hidden', $this->get_form_date() );
-		$this->fields[] = new Button( $this->engine, 'submit', __( "Submit Form", LEADGEN_TEXT_DOMAIN ), null );
+		$this->fields[] = new DraggableButton( $this->engine, 'submit', __( "Submit Form", LEADGEN_TEXT_DOMAIN ), null );
 
 		foreach ( $this->fields as $field ) {
 			$field->set_form_id( $this->form_id );

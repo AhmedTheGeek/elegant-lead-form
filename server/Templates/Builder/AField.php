@@ -8,18 +8,20 @@ use LEADGEN\Templates\IEngine;
 abstract class AField extends ATemplate {
 
 	protected $name = "field";
-	private $display_name;
-	private $field_name;
-	private $form_id;
-	private $type;
-	private $value;
+	protected $display_name;
+	protected $field_name;
+	protected $form_id;
+	protected $type;
+	protected $value;
+	protected $max_length;
 
-	public function __construct( IEngine $engine, $name, $display_name, $type, $value = null ) {
+	public function __construct( IEngine $engine, $name, $display_name, $type, $value = null, $max_length = 255 ) {
 		parent::__construct( $engine );
 		$this->field_name   = $name;
-		$this->display_name = $display_name;
+		$this->display_name = sanitize_text_field( $display_name );
 		$this->type         = $type;
 		$this->value        = $value;
+		$this->max_length   = $max_length;
 	}
 
 	public function set_display_name( $display_name ) {
@@ -44,7 +46,8 @@ abstract class AField extends ATemplate {
 			'name'         => esc_attr( $this->field_name ),
 			'display_name' => esc_attr( $this->display_name ),
 			'type'         => esc_attr( $this->type ),
-			'value'        => esc_attr( $this->value )
+			'value'        => esc_attr( $this->value ),
+			'max_length'   => esc_attr( $this->max_length )
 		];
 
 		return $this->engine->render( $this->name, $context );

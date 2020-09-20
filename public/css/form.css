@@ -1,0 +1,36 @@
+.elegant_lead_form {
+    font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
+
+}
+
+.elegant_lead_form input {
+    width: 100%;
+    display:block;
+}
+
+.elegant_lead_form label {
+    margin-top: 10px;
+    display: block;
+    clear: both;
+}
+
+.elegant_lead_form button {
+    display: block;
+    clear:both;
+    margin-top: 10px;
+}
+
+.elegant_lead_form .notice {
+    display: none;
+    color: #fff;
+    font-weight:bold;
+    padding: 10px;
+}
+
+.elegant_lead_form .notice.success {
+    background-color: #00bb00;
+}
+
+.elegant_lead_form .notice.error {
+    background-color: #8b0000;
+}

@@ -2,10 +2,24 @@
 
 namespace LEADGEN\Hooks;
 
+use LEADGEN\Models\Customer;
+use LEADGEN\Repository\Customer as Customer_Repository;
+
 class PostType implements IHook {
+	/**
+	 * @var Metabox
+	 */
+	private $metabox;
+	private $repository;
+
+	public function __construct( Metabox $metabox, Customer_Repository $repository ) {
+		$this->metabox    = $metabox;
+		$this->repository = $repository;
+	}
 
 	public function register(): void {
-		add_action( 'init', array( &$this, 'define' ) );
+		add_action( 'init', array( $this, 'define' ) );
+		$this->create_metabox();
 	}
 
 	public function define(): void {
@@ -34,7 +48,7 @@ class PostType implements IHook {
 			'show_in_menu' => true,
 			'query_var'    => false,
 			'rewrite'      => [ 'slug' => 'elegant-customer' ],
-			'taxonomies'   => [],
+			'taxonomies'   => [ 'category', 'post_tag' ],
 			'capabilities' => [
 				'edit_post'          => 'manage_options',
 				'read_post'          => 'manage_options',
@@ -50,5 +64,23 @@ class PostType implements IHook {
 		);
 
 		register_post_type( LEADGEN_CPT_SLUG, $args );
+	}
+
+	public function create_metabox() {
+		$this->metabox->set_id( 'customer_meta_box' );
+		$this->metabox->set_title( __( 'Customer Submission', LEADGEN_TEXT_DOMAIN ) );
+		$this->metabox->set_post_type( LEADGEN_CPT_SLUG );
+		$this->metabox->set_repository( $this->repository );
+		$this->metabox->set_formatter( static function ( Customer $data ) {
+			return [
+				'name'    => $data->get_name(),
+				'email'   => $data->get_email(),
+				'phone'   => $data->get_phone_number(),
+				'message' => $data->get_message(),
+				'date'    => $data->get_date(),
+				'budget'  => $data->get_budget()
+			];
+		} );
+		$this->metabox->register();
 	}
 }

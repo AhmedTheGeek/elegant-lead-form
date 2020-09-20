@@ -11,7 +11,8 @@ class Mustache_Engine implements IEngine {
 	public function __construct() {
 		$loader       = new Mustache_Loader_FilesystemLoader( LEADGEN_PATH . '/static/views' );
 		$this->engine = new Engine( [
-			'loader' => $loader
+			'loader'      => $loader,
+			'entity_flags' => ENT_QUOTES
 		] );
 	}
 
